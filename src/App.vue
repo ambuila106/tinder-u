@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1 style="color: white; text-align: center; margin-bottom: 3rem;">Rela Universitario (villavicencio)</h1>
+    <h1 style="color: white; text-align: center; margin-bottom: 3rem;">Rela Universitario (villavicencio) {{ id }}</h1>
     <Tinder class="tinder" key-name="id" :queue.sync="queue" :offset-y="10" @submit="onSubmit">
       <template slot-scope="scope">
         <div
@@ -28,12 +28,17 @@ export default {
   data: () => ({
     queue: [],
     offset: 0,
+    id: 0,
   }),
 
   async created() {
     this.mock();
     let api = new Api();
-    api.getIdByUser('iambuila');
+    api.getIdByUser('iambuila').then(r => {
+        this.id = r.data.data.id;
+    }).catch(function (error) {
+        console.error(error);
+    });
   },
 
   methods: {

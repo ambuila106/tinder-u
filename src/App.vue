@@ -19,7 +19,8 @@
 
 <script>
 import Tinder from "vue-tinder";
-import source from "./bing"
+import source from "./bing";
+import Api from "./api/index.js"
 
 export default {
   name: "App",
@@ -28,9 +29,13 @@ export default {
     queue: [],
     offset: 0,
   }),
-  created() {
+
+  async created() {
     this.mock();
+    let api = new Api();
+    api.getIdByUser('iambuila');
   },
+
   methods: {
     mock(count = 5) {
       const list = [];
